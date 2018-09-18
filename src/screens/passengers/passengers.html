@@ -63,6 +63,9 @@
             <li>
               {{ vm.getDescPassCountStr() }}
             </li>
+            <li>
+              {{ vm.orderInfo.flights[0].date | formatDate: 'D MMMM YYYY' }}
+            </li>
           </ul>
         </div>
       </div>
