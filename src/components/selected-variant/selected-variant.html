@@ -13,7 +13,7 @@
                 <div class="col">
                     <div class="col__item">
 
-                        <div ng-repeat="(segNum, segment) in vm.selectedVariantsInfo" ng-init="isFirstSegment = $first" class="flight">
+                        <div ng-repeat="(segNum, segment) in vm.selectedVariantsInfo" ng-init="first" class="flight">
 
                             <div class="route_item_container" ng-repeat="(flightNum, flight) in segment.flights" ng-init="isFirstFlightInSegment = $first">
 
@@ -22,7 +22,7 @@
                                 	<div class="route__i route_container">
                                 		<div class="route_table">
                                 			<div class="dep">
-                                                <div class="dep__heading" ng-if="isFirstSegment && isFirstFlightInSegment">
+                                                <div class="dep__heading" ng-if="isFirstFlightInSegment">
                                                     Отправление
                                                 </div>
                                 				<div class="dep__date"  ng-class="{ nextDay: flight.departuredayshift, attention: flight.departuredayshift}">
@@ -39,7 +39,7 @@
                                 				<div class="info__timeEnRoute">{{ flight.flighttime | timeAsWords }}</div>
                                 			</div>
                                 			<div class="arr">
-                                                <div class="arr__heading" ng-if="isFirstSegment && isFirstFlightInSegment">
+                                                <div class="arr__heading" ng-if="isFirstFlightInSegment">
                                                     прибытие
                                                 </div>
                                 				<div class="arr__date" ng-class="{ nextDay: flight.arrivaldayshift, attention: flight.arrivaldayshift}">
@@ -53,7 +53,7 @@
                                 		</div>
                                 	</div>
                                 	<div class="route__i additional">
-                                        <div class="additional__heading" ng-if="isFirstSegment && isFirstFlightInSegment">
+                                        <div class="additional__heading" ng-if="isFirstFlightInSegment">
                                             Перевозчик
                                         </div>
                                 		<span class="additional__company">{{ 'web.choosenFlight.company' | aliasStatic}} {{ flight.company.name }}</span>
