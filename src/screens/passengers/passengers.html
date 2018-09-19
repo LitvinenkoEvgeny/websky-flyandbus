@@ -53,6 +53,23 @@
                           port="vm.orderInfo.flights[0].flights[vm.orderInfo.flights[0].flights.length-1].destinationport"
                           portname="vm.orderInfo.flights[0].flights[vm.orderInfo.flights[0].flights.length-1].destinationportName">
               </geo-marker>
+              <wrap ng-if="vm.orderInfo.flights.length == 2">
+                –
+                <geo-marker prefix="arr__point" key="passengers"
+                            city="vm.orderInfo.flights[1].flights[vm.orderInfo.flights[0].flights.length-1].destinationcity"
+                            cityname="vm.orderInfo.flights[1].flights[vm.orderInfo.flights[0].flights.length-1].destinationcityName"
+                            port="vm.orderInfo.flights[1].flights[vm.orderInfo.flights[0].flights.length-1].destinationport"
+                            portname="vm.orderInfo.flights[1].flights[vm.orderInfo.flights[0].flights.length-1].destinationportName">
+                </geo-marker>
+              </wrap>
+
+            </li>
+            <li>
+              {{ vm.orderInfo.flights[0].date | formatDate: 'DD.MM.YY' }}
+              <span ng-if="vm.orderInfo.flights.length == 2">
+                –
+                {{ vm.orderInfo.flights[1].date | formatDate: 'DD.MM.YY' }}
+              </span>
             </li>
             <li ng-show="vm.orderInfo.flights.length == 2">
               {{ 'web.searchForm.roundtrip' | aliasStatic}}
@@ -62,9 +79,6 @@
             </li>
             <li>
               {{ vm.getDescPassCountStr() }}
-            </li>
-            <li>
-              {{ vm.orderInfo.flights[0].date | formatDate: 'D MMMM YYYY' }}
             </li>
           </ul>
         </div>
