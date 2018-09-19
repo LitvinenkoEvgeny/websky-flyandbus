@@ -4,6 +4,11 @@
         ngHtml2Js = require('gulp-ng-html2js'),
         minifyHtml = require('gulp-minify-html'),
         uglify = require('gulp-uglify'),
+        browserify = require('browserify'),
+        strictify = require('strictify'),
+        sourcemaps = require('gulp-sourcemaps'),
+        buffer = require('vinyl-buffer'),
+        source = require('vinyl-source-stream'),
         concat = require('gulp-concat');
 
     gulp.task('clean', function () {
@@ -29,11 +34,23 @@
     });
 
 
-    gulp.task('watch', function () {
-        gulp.watch('src/**/*.*', gulp.series('build:html'));
+    gulp.task('build:js', function () {
+        return browserify('src/index.js', {transform: strictify})
+            .bundle()
+            .pipe(source('controllers-flyandbus.js'))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(uglify())
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('build/'));
     });
 
-    gulp.task('build', gulp.series('build:html'));
+
+    gulp.task('watch', function () {
+        gulp.watch('src/**/*.*', gulp.series('build:html', 'build:js'));
+    });
+
+    gulp.task('build', gulp.series('build:html', 'build:js'));
 
     gulp.task('default', gulp.series('build', 'watch'));
 })();
