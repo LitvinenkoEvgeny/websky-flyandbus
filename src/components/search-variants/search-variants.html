@@ -1,0 +1,82 @@
+<div class="searchResultsPlain">
+	<div class="searchResultsPlain__i">
+
+		<div ng-repeat="(rowNum, priceRow) in vm.searchResult.priceRows" class="flight">
+			<div class="flight__container">
+				<a ng-repeat="segment in priceRow.segments" href fancybox="popupFlightDetail" ng-click="vm.flightDetail = segment" class="searchResultsPlain__link popup_js">
+	    			<div class="flight__i">
+
+	    				<div class="route_item">
+	    					<div class="route__i route_container">
+	    						<div class="route_table">
+	    							<div class="dep">
+	    								<div class="dep__date">
+	    									{{ segment.flightsInfo.departuredate | formatDate: 'D MMM, dd' }}
+	    								</div>
+	    								<div class="dep__time">
+	    									{{ segment.flightsInfo.departuretime }}
+	    								</div>
+										<geo-marker prefix="dep__point" key="search-variants" city="segment.flightsInfo.origincity"  cityname="segment.flightsInfo.origincityName" port="segment.flightsInfo.originport"  portname="segment.flightsInfo.originportName"></geo-marker>
+	    							</div>
+	    							<div class="info" >
+	    								<i ng-repeat="flight in segment.flights" class="icon_plane"></i>
+	    								<div class="info__number">
+	                                        <wrap ng-if="segment.flights.length == 1">
+	                                            {{ segment.flights[0].company.code || segment.flights[0].company.code_en }}-{{ segment.flights[0].racenumber }}
+	                                        </wrap>
+	                                        <wrap ng-if="segment.flights.length > 1">
+	                                            {{ 'web.popupOrderFlightDetail.flighttime' | aliasStatic}}
+	                                        </wrap>
+	                                    </div>
+	    								<div class="info__timeEnRoute">
+	    								    {{ segment.flightsInfo.flighttime | timeAsWords }}
+	    								</div>
+										<div ng-if="segment.flights[0].landings.length" class="landingPlain">
+											{{ vm.suffixCount(segment.flights[0].landings.length, ( 'web.searchResult.landings' | aliasStatic)) }}
+										</div>
+
+	    							</div>
+	    							<div class="arr">
+	    								<div class="arr__date" ng-class="{ nextDay: segment.flightsInfo.arrivaldayshift, attention: segment.flightsInfo.arrivaldayshift }">
+	    									{{ segment.flightsInfo.arrivaldate | formatDate: 'D MMM, dd' }}
+	    								</div>
+	    								<div class="arr__time">
+	    									{{ segment.flightsInfo.arrivaltime }}
+	    								</div>
+										<geo-marker prefix="arr__point" key="search-variants" city="segment.flightsInfo.destinationcity"  cityname="segment.flightsInfo.destinationcityName" port="segment.flightsInfo.destinationport"  portname="segment.flightsInfo.destinationportName"></geo-marker>
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div ng-if="segment.flightsInfo.connections.length" ng-repeat="connection in segment.flightsInfo.connections" class="route__i transferPlain">
+	                            <span class="transferPlain__caption">
+	                            	{{ 'web.searchResult.connection' | aliasStatic}}
+	                            </span>
+	    						<span class="transferPlain__text">
+									{{ connection.cityName }}, <span>{{ connection.time | timeAsWords }}</span>
+								</span>
+	    					</div>
+							<div ng-if="!segment.flightsInfo.connections.length" class="route__i additional">
+								<span class="additional__company">
+									{{ 'web.choosenFlight.company' | aliasStatic}}
+									{{ segment.flights[0].company.name }}
+								</span>
+								<span class="additional__plane">
+									{{ segment.flights[0].airplaneName || segment.flights[0].airplane }}
+								</span>
+	    					</div>
+	    				</div>
+
+	    			</div>
+				</a>
+			</div>
+			<div class="flight__button">
+				<a href ng-click="vm.selectVariant(rowNum)" class="btn btn_search">
+                    {{ 'web.buttons.buyPrice' | aliasStatic}}&nbsp;<wrap ng-bind-html=" { value: priceRow.price.price, currency: priceRow.price.currency } | price "></wrap>
+                </a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<popup-flight-detail detail="vm.flightDetail"></popup-flight-detail>
