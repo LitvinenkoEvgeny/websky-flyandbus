@@ -18,7 +18,7 @@
 	    								</div>
 										<geo-marker prefix="dep__point" key="search-variants" city="segment.flightsInfo.origincity"  cityname="segment.flightsInfo.origincityName" port="segment.flightsInfo.originport"  portname="segment.flightsInfo.originportName"></geo-marker>
 	    							</div>
-	    							<div class="info" ng-init="singleFlightWithFlyAndBus = segment.flights.length === 1 && segment.flights[0].company.name  === 'ФЛАЙБАС' ">
+	    							<div class="info" ng-init="singleFlightWithFlyAndBus = segment.flights.length === 1 && segment.flights[0].company.code  === 'Э2' ">
 	    								<i ng-repeat="flight in segment.flights" ng-class="{icon_bus: singleFlightWithFlyAndBus}" class="icon_plane"></i>
 	    								<div class="info__number">
 	                                        <wrap ng-if="segment.flights.length == 1">
