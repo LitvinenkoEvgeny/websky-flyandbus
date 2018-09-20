@@ -15,9 +15,9 @@
 
                         <div ng-repeat="(segNum, segment) in vm.selectedVariantsInfo" ng-init="first" class="flight">
 
-                            <div class="route_item_container" ng-repeat="(flightNum, flight) in segment.flights" ng-init="isFirstFlightInSegment = $first">
+                            <div class="route_item_container" ng-class="{route_item_singleFlightFlyAndBus: singleFlightWithFlyAndBus}" ng-repeat="(flightNum, flight) in segment.flights" ng-init="isFirstFlightInSegment = $first; singleFlightWithFlyAndBus = segment.flights.length === 1 && segment.flights[0].company.code  === 'Э2' ">
 
-                                <div class="route_item">
+                                <div class="route_item" >
 
                                 	<div class="route__i route_container">
                                 		<div class="route_table">
@@ -33,8 +33,8 @@
                                 				</div>
                                                 <geo-marker prefix="dep__point" key="selected-variant" city="flight.origincity"  cityname="flight.origincityName" port="flight.originport"  portname="flight.originportName"></geo-marker>
                                 			</div>
-                                			<div class="info">
-                                				<i class="icon_plane"></i>
+                                			<div class="info" ng-class="{'info_single-fly-and-bus': singleFlightWithFlyAndBus}">
+                                				<i class="icon_plane" ng-class="{icon_bus: singleFlightWithFlyAndBus}"></i>
                                 				<div class="info__number">{{ flight.company.code_en }}-{{ flight.racenumber }}</div>
                                 				<div class="info__timeEnRoute">{{ flight.flighttime | timeAsWords }}</div>
                                 			</div>
