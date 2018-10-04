@@ -37,7 +37,7 @@
 										<geo-marker prefix="dep__point" key="popup-flight-detail" city="flight.origincity"  cityname="flight.origincityName" port="flight.originport"  portname="flight.originportName"></geo-marker>
 									</div>
 									<div class="info">
-										<i class="icon_plane"></i>
+										<i ng-class="{icon_bus: flight.company.code === 'Э2', icon_plane: flight.company.code !== 'Э2'}"></i>
 										<div class="info__number">
 											{{ flight.company.code || flight.company.code_en }}-{{ flight.racenumber }}
 										</div>
